@@ -1829,9 +1829,15 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                         </div>
 
                         <!-- Exhibitor Rows -->
-                        <div *ngIf="getFilteredExhibitors().length > 0" class="bg-white">
+                        <div
+                          *ngIf="getFilteredExhibitors().length > 0"
+                          class="bg-white"
+                        >
                           <div
-                            *ngFor="let exhibitor of getFilteredExhibitors(); let i = index"
+                            *ngFor="
+                              let exhibitor of getFilteredExhibitors();
+                              let i = index
+                            "
                             class="border-b border-[#E9E9E9] grid grid-cols-[70px_1fr_130px_130px_180px_100px] px-6 py-5 gap-4 hover:bg-gray-50 transition-colors"
                           >
                             <!-- Sr. No -->
@@ -1857,7 +1863,11 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                                 *ngIf="!exhibitor.companyLogo"
                                 class="w-10 h-10 flex-shrink-0 rounded bg-[#F5F5F5] flex items-center justify-center text-[#B1B1B1] font-semibold text-xs border border-[#E9E9E9]"
                               >
-                                {{ exhibitor.companyName.substring(0, 2).toUpperCase() }}
+                                {{
+                                  exhibitor.companyName
+                                    .substring(0, 2)
+                                    .toUpperCase()
+                                }}
                               </div>
                               <span
                                 class="text-base font-semibold text-[#353846] truncate"

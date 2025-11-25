@@ -278,7 +278,9 @@ import { FormsModule } from "@angular/forms";
                         class="w-5 h-5 rounded flex items-center justify-center border-2 transition-colors"
                         [class.bg-[#009FD8]]="formData.socialMedia.facebook"
                         [class.border-[#009FD8]]="formData.socialMedia.facebook"
-                        [class.border-[#BFC3C5]]="!formData.socialMedia.facebook"
+                        [class.border-[#BFC3C5]]="
+                          !formData.socialMedia.facebook
+                        "
                       >
                         <svg
                           *ngIf="formData.socialMedia.facebook"
@@ -375,7 +377,9 @@ import { FormsModule } from "@angular/forms";
 
           <!-- Social Media URLs -->
           <div
-            *ngIf="formData.socialMedia.blogRss || formData.socialMedia.facebook"
+            *ngIf="
+              formData.socialMedia.blogRss || formData.socialMedia.facebook
+            "
             class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"
           >
             <!-- Blog/RSS URL -->
@@ -502,7 +506,10 @@ import { FormsModule } from "@angular/forms";
                 class="hidden"
               />
             </div>
-            <p *ngIf="formData.documentName" class="text-sm text-[#878A99] mt-2">
+            <p
+              *ngIf="formData.documentName"
+              class="text-sm text-[#878A99] mt-2"
+            >
               Selected: {{ formData.documentName }}
             </p>
           </div>
