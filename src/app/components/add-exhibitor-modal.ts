@@ -15,11 +15,11 @@ import { FormsModule } from "@angular/forms";
     >
       <!-- Modal Container -->
       <div
-        class="bg-white rounded shadow-lg w-full max-w-[767px] max-h-[95vh] overflow-y-auto"
+        class="bg-white rounded shadow-lg w-full max-w-[767px] max-h-[95vh] flex flex-col"
         (click)="$event.stopPropagation()"
       >
-        <!-- Modal Header -->
-        <div class="px-5 py-4 border-b border-[#CED4DA]">
+        <!-- Modal Header - Fixed -->
+        <div class="flex-shrink-0 px-[30px] py-[30px] border-b border-[#CED4DA]">
           <div class="flex items-center justify-between">
             <h2 class="text-[22px] font-medium text-[#3F4254]">
               Add Exhibitors
@@ -56,8 +56,8 @@ import { FormsModule } from "@angular/forms";
           </div>
         </div>
 
-        <!-- Modal Body -->
-        <form class="px-6 py-5" (ngSubmit)="onSubmit()">
+        <!-- Modal Body - Scrollable -->
+        <form class="flex-1 overflow-y-auto px-[25px] py-6" (ngSubmit)="onSubmit()">
           <!-- Profile Upload -->
           <div class="flex justify-center mb-8">
             <div class="relative">
