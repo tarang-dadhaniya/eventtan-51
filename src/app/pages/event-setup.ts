@@ -3240,6 +3240,43 @@ export class EventSetupComponent implements OnInit {
     }
   }
 
+  openAddSpeakersModal() {
+    this.editModeSpeaker = false;
+    this.editingSpeaker = null;
+    this.isAddSpeakersModalOpen = true;
+  }
+
+  closeAddSpeakersModal() {
+    this.isAddSpeakersModalOpen = false;
+    this.editModeSpeaker = false;
+    this.editingSpeaker = null;
+  }
+
+  onSpeakerSave(speakerData: any) {
+    if (this.editModeSpeaker && this.editingSpeaker) {
+      this.speakerService.updateSpeaker(this.editingSpeaker.id, speakerData);
+    } else {
+      this.speakerService.addSpeaker(this.eventId, speakerData);
+    }
+    this.loadSpeakers();
+    this.closeAddSpeakersModal();
+  }
+
+  loadSpeakers() {
+    this.speakers = this.speakerService.getSpeakersByEvent(this.eventId);
+  }
+
+  editSpeaker(speaker: Speaker) {
+    this.editModeSpeaker = true;
+    this.editingSpeaker = speaker;
+    this.isAddSpeakersModalOpen = true;
+  }
+
+  deleteSpeaker(id: string) {
+    this.speakerToDelete = id;
+    this.isDeleteModalOpen = true;
+  }
+
   loadExhibitors() {
     this.exhibitors = this.exhibitorService.getExhibitorsByEvent(this.eventId);
   }
