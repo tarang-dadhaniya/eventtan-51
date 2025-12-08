@@ -14,6 +14,7 @@ import { AddSpeakersModalComponent } from "../components/add-speakers-modal";
 import { ConfirmDeleteModalComponent } from "../components/confirm-delete-modal";
 import { AboutDetailModalComponent } from "../components/about-detail-modal";
 import { AddInformationModalComponent } from "../components/add-information-modal";
+import { AddSponsorsModalComponent } from "../components/add-sponsors-modal";
 import { ScheduleService, Schedule } from "../services/schedule.service";
 import { ExhibitorService, Exhibitor } from "../services/exhibitor.service";
 import { SpeakerService, Speaker } from "../services/speaker.service";
@@ -21,6 +22,7 @@ import {
   InformationService,
   Information,
 } from "../services/information.service";
+import { SponsorService, Sponsor } from "../services/sponsor.service";
 
 const DASHBOARD_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M9.11972 1.77151C8.15614 1.4095 7.09392 1.4095 6.13033 1.77151C5.5251 1.99889 4.94006 2.45532 3.51022 3.59919L1.21855 5.43253C0.895102 5.69128 0.423133 5.63884 0.164376 5.3154C-0.0943811 4.99195 -0.0419401 4.51998 0.281506 4.26122L2.57317 2.42789C2.61283 2.39616 2.65202 2.36481 2.69075 2.33381C3.96492 1.31414 4.74565 0.689359 5.6028 0.367335C6.90647 -0.122445 8.34359 -0.122445 9.64726 0.367335C10.5044 0.689359 11.2851 1.31414 12.5593 2.33381C12.598 2.3648 12.6372 2.39616 12.6769 2.42789L14.9685 4.26122C15.292 4.51998 15.3444 4.99195 15.0857 5.3154C14.8269 5.63884 14.355 5.69128 14.0315 5.43253L11.7398 3.59919C10.31 2.45532 9.72496 1.99889 9.11972 1.77151Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M4.08565 0.281506C4.34441 0.604953 4.29197 1.07692 3.96852 1.33568L3.51019 1.70235C3.09253 2.03647 2.92421 2.17224 2.77968 2.31347C2.06537 3.01148 1.61969 3.93876 1.52086 4.93259C1.50087 5.13368 1.5 5.34993 1.5 5.88479V11.2C1.5 13.3171 3.21624 15.0334 5.33334 15.0334C5.93164 15.0334 6.41667 14.5483 6.41667 13.95V10.2833C6.41667 8.35031 7.98367 6.78331 9.91667 6.78331C11.8497 6.78331 13.4167 8.35031 13.4167 10.2833V13.95C13.4167 14.5483 13.9017 15.0334 14.5 15.0334C16.6171 15.0334 18.3333 13.3171 18.3333 11.2V5.88479C18.3333 5.34993 18.3325 5.13368 18.3125 4.93259C18.2136 3.93876 17.7679 3.01148 17.0536 2.31347C16.9091 2.17224 16.7408 2.03647 16.3231 1.70235L15.8648 1.33568C15.5413 1.07692 15.4889 0.604953 15.7477 0.281506C16.0064 -0.0419405 16.4784 -0.0943815 16.8018 0.164376L17.2748 0.541868C17.6571 0.856916 17.886 1.04452 18.0782 1.23375C19.0199 2.16224 19.5996 3.40171 19.7171 4.72041C19.7394 4.94668 19.7496 5.18893 19.7543 5.59686L19.75 5.88479V11.2C19.75 14.0997 17.3997 16.45 14.5 16.45C13.1193 16.45 11.9167 15.2473 11.9167 13.8667V10.2C11.9167 9.19579 11.087 8.38331 10.0667 8.38331C9.04634 8.38331 8.21667 9.19579 8.21667 10.2V13.8667C8.21667 15.2473 7.01401 16.45 5.63334 16.45C2.73357 16.45 0.383333 14.0997 0.383333 11.2V5.88479L0.379004 5.59686C0.383737 5.18893 0.393911 4.94668 0.416226 4.72041C0.533719 3.40171 1.11338 2.16224 2.05508 1.23375C2.24733 1.04452 2.47622 0.856916 2.85854 0.541868L3.33152 0.164376C3.65497 -0.0943815 4.12694 -0.0419405 4.38565 0.281506Z" fill="white"/></svg>`;
 
@@ -41,6 +43,7 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
     ConfirmDeleteModalComponent,
     AboutDetailModalComponent,
     AddInformationModalComponent,
+    AddSponsorsModalComponent,
   ],
   template: `
     <div class="flex h-screen overflow-hidden bg-main-bg">
@@ -2788,26 +2791,31 @@ export class EventSetupComponent implements OnInit {
   isExhibitorModalOpen = false;
   isAddSpeakersModalOpen = false;
   isInformationModalOpen = false;
+  isSponsorsModalOpen = false;
   editAboutContent = false;
   eventId: string = "";
   schedules: Schedule[] = [];
   exhibitors: Exhibitor[] = [];
   speakers: Speaker[] = [];
   information: Information[] = [];
+  sponsors: Sponsor[] = [];
   searchQuery: string = "";
   editMode = false;
   editModeExhibitor = false;
   editModeSpeaker = false;
   editModeInformation = false;
+  editModeSponsor = false;
   editingSchedule: any = null;
   editingExhibitor: any = null;
   editingSpeaker: any = null;
   editingInformation: any = null;
+  editingSponsor: any = null;
   isDeleteModalOpen = false;
   scheduleToDelete: string | null = null;
   exhibitorToDelete: string | null = null;
   speakerToDelete: string | null = null;
   informationToDelete: string | null = null;
+  sponsorToDelete: string | null = null;
   aboutTitle: string = "About ENGIMACH 2023";
   aboutDescription: string =
     "After the rousing success of the 2021 edition, the expectations from ENGIMACH 2023 have also risen. India is the only large economy expected to grow significantly in the coming years. India is also fast emerging as a preferred manufacturing base in a world seeking reliable supply chains. On the other hand, Indian industry seeks more foreign investments, technology, exports and domestic demand. In this context, ENGIMACH 2023 is expected to be a major catalyst of economic growth and generate significant and lasting business outcomes.";
@@ -2970,6 +2978,7 @@ export class EventSetupComponent implements OnInit {
     private exhibitorService: ExhibitorService,
     private speakerService: SpeakerService,
     private informationService: InformationService,
+    private sponsorService: SponsorService,
   ) {}
 
   getSafeHtml(html: string): SafeHtml {
@@ -2989,6 +2998,7 @@ export class EventSetupComponent implements OnInit {
     this.loadExhibitors();
     this.loadSpeakers();
     this.loadInformation();
+    this.loadSponsors();
 
     this.updateActiveRoute();
 
@@ -3325,6 +3335,9 @@ export class EventSetupComponent implements OnInit {
     } else if (this.informationToDelete) {
       this.informationService.deleteInformation(this.informationToDelete);
       this.loadInformation();
+    } else if (this.sponsorToDelete) {
+      this.sponsorService.deleteSponsor(this.sponsorToDelete);
+      this.loadSponsors();
     }
     this.closeDeleteModal();
   }
@@ -3335,6 +3348,7 @@ export class EventSetupComponent implements OnInit {
     this.exhibitorToDelete = null;
     this.speakerToDelete = null;
     this.informationToDelete = null;
+    this.sponsorToDelete = null;
   }
 
   openExhibitorModal() {
@@ -3443,6 +3457,46 @@ export class EventSetupComponent implements OnInit {
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
+  }
+
+  openSponsorsModal() {
+    this.editModeSponsor = false;
+    this.editingSponsor = null;
+    this.isSponsorsModalOpen = true;
+  }
+
+  closeSponsorsModal() {
+    this.isSponsorsModalOpen = false;
+    this.editModeSponsor = false;
+    this.editingSponsor = null;
+  }
+
+  onSponsorSave(sponsorData: any) {
+    if (this.editModeSponsor && this.editingSponsor) {
+      this.sponsorService.updateSponsor(
+        this.editingSponsor.id,
+        sponsorData,
+      );
+    } else {
+      this.sponsorService.addSponsor(this.eventId, sponsorData);
+    }
+    this.loadSponsors();
+    this.closeSponsorsModal();
+  }
+
+  loadSponsors() {
+    this.sponsors = this.sponsorService.getSponsorsByEvent(this.eventId);
+  }
+
+  editSponsor(sponsor: Sponsor) {
+    this.editModeSponsor = true;
+    this.editingSponsor = sponsor;
+    this.isSponsorsModalOpen = true;
+  }
+
+  deleteSponsor(id: string) {
+    this.sponsorToDelete = id;
+    this.isDeleteModalOpen = true;
   }
 
   formatTime(timeString: string): string {
