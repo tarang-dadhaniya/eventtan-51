@@ -783,7 +783,7 @@ import { FormsModule } from "@angular/forms";
           </div>
 
           <div
-            class="flex-shrink-0 flex items-center justify-center gap-4 px-[30px] py-6 border-t border-[#CED4DA]"
+            class="flex-shrink-0 flex items-center justify-end gap-4 px-[30px] py-6 border-t border-[#CED4DA]"
           >
             <button
               type="button"
