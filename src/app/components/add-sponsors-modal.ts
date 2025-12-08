@@ -945,7 +945,7 @@ export class AddSponsorsModalComponent {
       this.formData.phone &&
       this.formData.track
     ) {
-      this.submit.emit({ ...this.formData });
+      this.submit.emit({ ...this.formData, eventId: this.eventId });
       this.resetForm();
       this.close.emit();
     }
