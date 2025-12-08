@@ -989,7 +989,7 @@ export class AddSponsorsModalComponent {
       sponsorsFor: "",
       website: "",
       description: "",
-      documentName: "",
+      documentNames: [],
     };
     this.showSocialMediaDropdown = false;
   }
