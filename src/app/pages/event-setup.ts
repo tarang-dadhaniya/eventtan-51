@@ -2782,6 +2782,124 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                     </div>
                   </div>
 
+                  <!-- Social Media Content -->
+                  <div
+                    *ngIf="
+                      activeFeatures.length > 0 &&
+                      activeFeatures[selectedFeatureIndex] === 'social-media'
+                    "
+                  >
+                    <div class="flex flex-col gap-0">
+                      <!-- Header Container with Title and Controls -->
+                      <div
+                        class="bg-[#F5F5F5] border border-[#CED4DA] rounded-t-md"
+                      >
+                        <div
+                          class="flex items-center justify-between px-6 py-4 gap-6"
+                        >
+                          <h2
+                            class="text-xl font-medium text-[#686868] whitespace-nowrap"
+                          >
+                            Social Media
+                          </h2>
+
+                          <div
+                            class="flex-1 flex items-center justify-end gap-3"
+                          >
+                            <!-- Search Bar -->
+                            <div class="relative">
+                              <input
+                                type="text"
+                                placeholder="Search"
+                                class="h-11 pl-5 pr-11 border border-[#DADADA] rounded text-base font-medium placeholder-[#878A99] focus:outline-none focus:border-[#049AD0] bg-[#FBFBFB] transition-colors"
+                                style="width: 220px;"
+                              />
+                              <svg
+                                class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#B1B1B1] pointer-events-none"
+                                fill="none"
+                                viewBox="0 0 18 18"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9 0C13.9705 0 17.9998 4.02959 18 9C18 13.9706 13.9706 18 9 18C4.02959 17.9998 0 13.9705 0 9C0.000175931 4.0297 4.0297 0.000175935 9 0ZM9 1.5C4.85812 1.50018 1.50018 4.85812 1.5 9C1.5 13.142 4.85801 16.4998 9 16.5C13.1421 16.5 16.5 13.1421 16.5 9C16.4998 4.85801 13.142 1.5 9 1.5Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+
+                            <!-- Add Social Media Button -->
+                            <button
+                              class="flex items-center gap-2 px-4 h-11 border border-[#049AD0] rounded font-semibold text-sm text-white bg-[#009FD8] hover:bg-[#0385b5] transition-colors whitespace-nowrap"
+                            >
+                              <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M12 5V19"
+                                  stroke="white"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M5 12H19"
+                                  stroke="white"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                              <span>Add Social Media</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Table -->
+                      <div
+                        class="border border-[#CED4DA] border-t-0 rounded-b-md overflow-hidden"
+                      >
+                        <!-- Table Header Row -->
+                        <div
+                          class="bg-white border-b border-[#CED4DA] grid grid-cols-[70px_1fr_200px_120px] px-6 py-4 gap-4"
+                        >
+                          <div
+                            class="text-[#181C32] font-bold text-base text-center"
+                          >
+                            Sr. No
+                          </div>
+                          <div class="text-[#181C32] font-bold text-base">
+                            Type
+                          </div>
+                          <div class="text-[#181C32] font-bold text-base">
+                            URL
+                          </div>
+                          <div
+                            class="text-[#181C32] font-bold text-base text-center"
+                          >
+                            Action
+                          </div>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div
+                          class="bg-white min-h-80 flex items-center justify-center"
+                        >
+                          <div class="text-center py-12">
+                            <p class="text-[#878A99] text-lg">
+                              No social media links added. Click "Add Social
+                              Media" to get started.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <!-- Other Features Placeholder -->
                   <div
                     *ngIf="
@@ -2791,7 +2909,8 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                       activeFeatures[selectedFeatureIndex] !== 'about' &&
                       activeFeatures[selectedFeatureIndex] !== 'information' &&
                       activeFeatures[selectedFeatureIndex] !== 'speakers' &&
-                      activeFeatures[selectedFeatureIndex] !== 'sponsors'
+                      activeFeatures[selectedFeatureIndex] !== 'sponsors' &&
+                      activeFeatures[selectedFeatureIndex] !== 'social-media'
                     "
                     class="flex flex-col items-center justify-center py-16 text-center"
                   >
