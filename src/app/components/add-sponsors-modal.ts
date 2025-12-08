@@ -875,7 +875,7 @@ export class AddSponsorsModalComponent {
         sponsorsFor: data.sponsorsFor || "",
         website: data.website || "",
         description: data.description || "",
-        documentName: data.documentName || "",
+        documentNames: data.documentNames || [],
       };
     }
   }
