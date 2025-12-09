@@ -7,6 +7,10 @@ export interface GalleryImage {
   title: string;
   imageUrl: string;
   caption?: string;
+  thumbnailImageUrl?: string;
+  imageGalleryFor?: string;
+  viewMoreUrl?: string;
+  productImageUrls?: string[];
   createdAt: string;
 }
 

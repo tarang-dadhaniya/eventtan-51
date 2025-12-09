@@ -3088,7 +3088,7 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                       >
                         <div
                           *ngFor="let image of galleryImages"
-                          class="flex flex-col"
+                          class="flex flex-col group"
                         >
                           <!-- Image Card -->
                           <div
@@ -3108,7 +3108,7 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
 
                               <!-- Actions Overlay -->
                               <div
-                                class="absolute top-[11px] right-[11px] flex gap-[6px]"
+                                class="absolute top-[11px] right-[11px] flex gap-[6px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                               >
                                 <!-- Edit Button -->
                                 <button
@@ -3186,12 +3186,6 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                               >
                                 {{ image.title }}
                               </h3>
-                              <p
-                                *ngIf="image.caption"
-                                class="text-sm text-[#686868] mt-1 line-clamp-1"
-                              >
-                                {{ image.caption }}
-                              </p>
                             </div>
                           </div>
                         </div>
