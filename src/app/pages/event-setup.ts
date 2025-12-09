@@ -3015,17 +3015,20 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                   >
                     <!-- Header -->
                     <div
-                      class="px-6 md:px-8 py-6 border-b border-[#CED4DA] flex items-center justify-between"
+                      class="bg-[#F5F5F5] border border-[#CED4DA] rounded-t"
                     >
-                      <h2
-                        class="text-xl md:text-2xl font-medium text-[#686868]"
+                      <div
+                        class="flex items-center justify-between px-6 py-4 gap-6"
                       >
-                        Image Gallery
-                      </h2>
-                      <button
-                        (click)="openImageGalleryModal()"
-                        class="flex items-center gap-2 px-4 md:px-6 py-2 bg-[#009FD8] hover:bg-[#0385b5] text-white rounded font-semibold transition-colors text-sm md:text-base"
-                      >
+                        <h2
+                          class="text-xl font-medium text-[#686868] whitespace-nowrap"
+                        >
+                          Image Gallery
+                        </h2>
+                        <button
+                          (click)="openImageGalleryModal()"
+                          class="flex items-center gap-2 px-4 h-11 bg-[#009FD8] hover:bg-[#0385b5] text-white rounded font-semibold transition-colors whitespace-nowrap"
+                        >
                         <svg
                           width="20"
                           height="20"
