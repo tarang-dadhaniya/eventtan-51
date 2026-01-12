@@ -1080,7 +1080,7 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                       </button>
                     </div>
                     <span
-                      class="text-sm md:text-base font-medium text-center"
+                      class="text-xs sm:text-sm md:text-base font-medium text-center"
                       [class.text-white]="isFeatureActive('schedule')"
                       [class.text-[#049AD0]]="!isFeatureActive('schedule')"
                     >
