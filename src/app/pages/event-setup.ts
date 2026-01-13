@@ -16,6 +16,7 @@ import { AboutDetailModalComponent } from "../components/about-detail-modal";
 import { AddInformationModalComponent } from "../components/add-information-modal";
 import { AddSponsorsModalComponent } from "../components/add-sponsors-modal";
 import { AddSocialMediaModalComponent } from "../components/add-social-media-modal";
+import { AddTestimonialsModalComponent } from "../components/add-testimonials-modal";
 import { ScheduleService, Schedule } from "../services/schedule.service";
 import { ExhibitorService, Exhibitor } from "../services/exhibitor.service";
 import { SpeakerService, Speaker } from "../services/speaker.service";
@@ -55,6 +56,7 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
     AddInformationModalComponent,
     AddSponsorsModalComponent,
     AddSocialMediaModalComponent,
+    AddTestimonialsModalComponent,
     AddImageGalleryModalComponent,
   ],
   template: `
@@ -3246,6 +3248,7 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
 
                             <!-- Add Testimonials Button -->
                             <button
+                              (click)="openAddTestimonialsModal()"
                               class="flex items-center gap-2 px-4 h-11 border border-[#049AD0] rounded font-semibold text-sm text-white bg-[#009FD8] hover:bg-[#0385b5] transition-colors whitespace-nowrap"
                             >
                               <svg
@@ -3564,6 +3567,15 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
       (submit)="onSocialMediaSave($event)"
     ></app-add-social-media-modal>
 
+    <!-- Add Testimonials Modal -->
+    <app-add-testimonials-modal
+      [isOpen]="isTestimonialsModalOpen"
+      [editMode]="editModeTestimonials"
+      [testimonialData]="editingTestimonial"
+      (close)="closeTestimonialsModal()"
+      (submit)="onTestimonialsSave($event)"
+    ></app-add-testimonials-modal>
+
     <!-- Add Image Gallery Modal -->
     <app-add-image-gallery-modal
       [isOpen]="isImageGalleryModalOpen"
@@ -3622,6 +3634,7 @@ export class EventSetupComponent implements OnInit {
   isInformationModalOpen = false;
   isSponsorsModalOpen = false;
   isSocialMediaModalOpen = false;
+  isTestimonialsModalOpen = false;
   isImageGalleryModalOpen = false;
   editAboutContent = false;
   eventId: string = "";
@@ -3631,6 +3644,7 @@ export class EventSetupComponent implements OnInit {
   information: Information[] = [];
   sponsors: Sponsor[] = [];
   socialMediaList: SocialMediaEntry[] = [];
+  testimonialsList: any[] = [];
   galleryImages: GalleryImage[] = [];
   searchQuery: string = "";
   editMode = false;
@@ -3639,11 +3653,13 @@ export class EventSetupComponent implements OnInit {
   editModeInformation = false;
   editModeSponsor = false;
   editModeSocialMedia = false;
+  editModeTestimonials = false;
   editingSchedule: any = null;
   editingExhibitor: any = null;
   editingSpeaker: any = null;
   editingInformation: any = null;
   editingSponsor: any = null;
+  editingTestimonial: any = null;
   isDeleteModalOpen = false;
   scheduleToDelete: string | null = null;
   exhibitorToDelete: string | null = null;
@@ -3652,6 +3668,7 @@ export class EventSetupComponent implements OnInit {
   sponsorToDelete: string | null = null;
   socialMediaToDelete: string | null = null;
   galleryImageToDelete: string | null = null;
+  testimonialToDelete: string | null = null;
   editingSocialMedia: SocialMediaEntry | null = null;
   editingGalleryImage: GalleryImage | null = null;
   aboutTitle: string = "About ENGIMACH 2023";
@@ -4213,6 +4230,13 @@ export class EventSetupComponent implements OnInit {
     } else if (this.socialMediaToDelete) {
       this.socialMediaService.deleteSocialMedia(this.socialMediaToDelete);
       this.loadSocialMedia();
+    } else if (this.testimonialToDelete) {
+      const index = this.testimonialsList.findIndex(
+        (t) => t.id === this.testimonialToDelete,
+      );
+      if (index > -1) {
+        this.testimonialsList.splice(index, 1);
+      }
     } else if (this.galleryImageToDelete) {
       this.imageGalleryService.deleteGalleryImage(this.galleryImageToDelete);
       this.loadGalleryImages();
@@ -4228,6 +4252,7 @@ export class EventSetupComponent implements OnInit {
     this.informationToDelete = null;
     this.sponsorToDelete = null;
     this.socialMediaToDelete = null;
+    this.testimonialToDelete = null;
     this.galleryImageToDelete = null;
   }
 
@@ -4464,6 +4489,49 @@ export class EventSetupComponent implements OnInit {
 
   deleteSocialMedia(id: string) {
     this.socialMediaToDelete = id;
+    this.isDeleteModalOpen = true;
+  }
+
+  openAddTestimonialsModal() {
+    this.editModeTestimonials = false;
+    this.editingTestimonial = null;
+    this.isTestimonialsModalOpen = true;
+  }
+
+  editTestimonial(testimonial: any) {
+    this.editModeTestimonials = true;
+    this.editingTestimonial = testimonial;
+    this.isTestimonialsModalOpen = true;
+  }
+
+  closeTestimonialsModal() {
+    this.isTestimonialsModalOpen = false;
+    this.editModeTestimonials = false;
+    this.editingTestimonial = null;
+  }
+
+  onTestimonialsSave(testimonialData: any) {
+    if (this.editModeTestimonials && this.editingTestimonial) {
+      const index = this.testimonialsList.findIndex(
+        (t) => t.id === this.editingTestimonial.id,
+      );
+      if (index > -1) {
+        this.testimonialsList[index] = {
+          ...this.testimonialsList[index],
+          ...testimonialData,
+        };
+      }
+    } else {
+      this.testimonialsList.push({
+        id: Date.now().toString(),
+        ...testimonialData,
+      });
+    }
+    this.closeTestimonialsModal();
+  }
+
+  deleteTestimonial(id: string) {
+    this.testimonialToDelete = id;
     this.isDeleteModalOpen = true;
   }
 
