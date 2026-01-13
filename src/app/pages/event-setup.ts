@@ -4452,6 +4452,10 @@ export class EventSetupComponent implements OnInit {
     );
   }
 
+  loadTestimonials() {
+    this.testimonialsList = this.testimonialService.getAllTestimonials();
+  }
+
   loadGalleryImages() {
     this.galleryImages = this.imageGalleryService.getGalleryImagesByEvent(
       this.eventId,
