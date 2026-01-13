@@ -4508,9 +4508,9 @@ export class EventSetupComponent implements OnInit {
     this.isTestimonialsModalOpen = true;
   }
 
-  editTestimonial(testimonial: any) {
+  editTestimonial(testimonial: Testimonial) {
     this.editModeTestimonials = true;
-    this.editingTestimonial = testimonial;
+    this.editingTestimonial = { ...testimonial };
     this.isTestimonialsModalOpen = true;
   }
 
